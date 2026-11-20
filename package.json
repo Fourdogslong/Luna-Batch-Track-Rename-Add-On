@@ -1,0 +1,20 @@
+{
+  "name": "luna-batch-track-renamer-add-on",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Luna Batch Track Renamer Add On, built with @uaudio/luna-builder-sdk",
+  "scripts": {
+    "build": "node ./node_modules/typescript/bin/tsc && node ./node_modules/vite/bin/vite.js build",
+    "dev": "node ./node_modules/vite/bin/vite.js build --watch",
+    "typecheck": "node ./node_modules/typescript/bin/tsc",
+    "serve": "node ./node_modules/@uaudio/luna-builder-sdk/sdk/cli.js serve",
+    "install-addon": "npm run build && node ./node_modules/@uaudio/luna-builder-sdk/sdk/cli.js install",
+    "pack": "npm run build && node ./node_modules/@uaudio/luna-builder-sdk/sdk/cli.js pack"
+  },
+  "devDependencies": {
+    "@uaudio/luna-builder-sdk": "file:../../../../../.codex/plugins/cache/luna-builder-sdk/ua-luna-builder/3.1.2",
+    "typescript": "5.9.3",
+    "vite": "8.3.0"
+  }
+}

@@ -1,4 +1,3 @@
-Warning: fs was declared with const; use let for reassignable variables.
 # Luna Batch Track Renamer Add On
 
 A LUNA browser Add On for renaming all visible tracks or the tracks selected in LUNA. It previews changes before applying them in one undoable transaction.

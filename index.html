@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luna Batch Track Renamer Add On</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font: 12px -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      --surface: #252525;
+      --field: #1d1d1d;
+      --edge: #3d3d3d;
+      --copy: #dedede;
+      --subtle: #a2a2a2;
+      --active: #e5b747;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 0; background: var(--surface); color: var(--copy); }
+    main { display: grid; gap: 0; width: 100%; padding: 7px 9px 10px; }
+    section { min-width: 0; padding: 9px 0; border-bottom: 1px solid var(--edge); }
+    section:first-child { padding-top: 2px; }
+    section:last-of-type { border-bottom: 0; }
+    h2 { margin: 0 0 7px; color: var(--subtle); font-size: 10px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+    .scope { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px; background: var(--field); }
+    button, input, textarea, select { min-width: 0; color: var(--copy); font: inherit; }
+    button { border: 1px solid transparent; border-radius: 3px; background: transparent; padding: 6px 7px; cursor: pointer; }
+    button:hover:not(:disabled) { background: #343434; }
+    .scope button.active { background: #414141; color: #fff; }
+    button:disabled { opacity: .45; cursor: default; }
+    label { display: block; margin: 0 0 4px; color: var(--subtle); font-size: 11px; }
+    textarea, input[type="text"], input[type="number"], select {
+      width: 100%; border: 1px solid var(--edge); border-radius: 3px; background: var(--field); padding: 6px 7px; outline: none;
+    }
+    textarea { min-height: 42px; resize: vertical; }
+    input:focus, textarea:focus, select:focus { border-color: #777; }
+    .field { min-width: 0; }
+    .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 7px; margin-top: 7px; }
+    .row.compact { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .check { display: flex; align-items: center; gap: 6px; min-height: 29px; color: var(--copy); }
+    .check input { margin: 0; accent-color: var(--active); }
+    .check label { margin: 0; color: var(--copy); }
+    #sequence-options { transition: opacity .12s; }
+    #sequence-options.disabled { opacity: .45; }
+    .preset-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin-top: 6px; }
+    .preset-actions button { border-color: var(--edge); background: #303030; padding: 5px 3px; white-space: nowrap; }
+    .preview-head { display: flex; justify-content: space-between; align-items: baseline; }
+    #preview { max-height: 28vh; overflow: auto; }
+    .preview-row { display: grid; grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr); align-items: center; gap: 4px; padding: 5px 0; border-bottom: 1px solid #363636; font-size: 11px; }
+    .preview-row span { min-width: 0; overflow-wrap: anywhere; }
+    .preview-row .arrow { color: var(--subtle); text-align: center; }
+    .preview-row .after { color: var(--active); }
+    .empty { margin: 0; padding: 7px 0; color: var(--subtle); font-size: 11px; }
+    .actions { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; padding-top: 9px; }
+    #apply { border-color: #4b4b4b; background: #393939; font-weight: 500; }
+    #apply:hover:not(:disabled) { background: #464646; }
+    #reset-after-rename { justify-content: end; font-size: 11px; }
+    #status { min-height: 0; padding-top: 0; color: var(--subtle); font-size: 10px; }
+    #status:empty { display: none; }
+    @media (max-width: 280px) {
+      main { padding-right: 7px; padding-left: 7px; }
+      .row { gap: 5px; }
+      .preset-actions { gap: 2px; }
+      .actions { grid-template-columns: minmax(0, 1fr); }
+      #reset-after-rename { justify-content: start; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <div class="scope" role="group" aria-label="Track scope">
+        <button id="scope-all" class="active" type="button">All Tracks</button>
+        <button id="scope-selected" type="button">Selected Tracks</button>
+      </div>
+    </section>
+    <section>
+      <label for="find">Find terms, separated by commas or new lines</label>
+      <textarea id="find"></textarea>
+      <div class="check"><input id="case-sensitive" type="checkbox"><label for="case-sensitive">Case sensitive</label></div>
+      <div class="row">
+        <div class="field"><label for="replace">Replace with</label><input id="replace" type="text"></div>
+        <div class="field"><label for="special-mode">Special characters</label><select id="special-mode"><option value="keep">Keep</option><option value="remove">Remove</option><option value="space">Replace with space</option></select></div>
+      </div>
+      <div class="row compact">
+        <div class="field"><label for="remove-first">Remove first characters</label><input id="remove-first" type="number" min="0" step="1" value="0"></div>
+        <div class="field"><label for="remove-last">Remove last characters</label><input id="remove-last" type="number" min="0" step="1" value="0"></div>
+      </div>
+      <div class="check"><input id="erase-all" type="checkbox"><label for="erase-all">Erase all</label></div>
+    </section>
+    <section>
+      <div class="field"><label for="append-text">Text before name</label><input id="append-text" type="text"></div>
+      <div class="row" id="sequence-options">
+        <div class="field"><label for="sequence-mode">Sequence</label><select id="sequence-mode"><option value="none">Off</option><option value="numbers">Numbers</option><option value="letters">Letters</option></select></div>
+        <div class="field"><label for="sequence-position">Sequence position</label><select id="sequence-position"><option value="append">At end</option><option value="prepend">At beginning</option></select></div>
+        <div class="field"><label for="sequence-start">Start at</label><input id="sequence-start" type="number" min="1" step="1" value="1"></div>
+        <div class="field"><label for="sequence-width">Number width</label><select id="sequence-width"><option value="1">1 digit</option><option value="2" selected>2 digits</option><option value="3">3 digits</option><option value="4">4 digits</option></select></div>
+      </div>
+    </section>
+    <section>
+      <h2>Presets</h2>
+      <select id="presets" aria-label="Saved presets"><option value="">No saved presets</option></select>
+      <div class="field" style="margin-top:6px"><label for="preset-name">Preset name</label><input id="preset-name" type="text"></div>
+      <div class="preset-actions"><button id="save-preset" type="button">Save as…</button><button id="rename-preset" type="button" disabled>Rename</button><button id="delete-preset" type="button" disabled>Delete</button></div>
+      <div id="preset-status" role="status" aria-live="polite"></div>
+    </section>
+    <section>
+      <div class="preview-head"><h2>Preview</h2><span id="preview-count"></span></div>
+      <div id="preview"><p class="empty">No tracks in this session.</p></div>
+    </section>
+    <div class="actions">
+      <div class="check" id="reset-after-rename"><input id="reset-after-rename-input" type="checkbox"><label for="reset-after-rename-input">Reset settings after rename</label></div>
+      <button id="apply" type="button" disabled>Rename tracks</button>
+    </div>
+    <div id="status" role="status" aria-live="polite"></div>
+  </main>
+  <script src="vendor/luna.global.js"></script>
+  <script src="dist/main.js"></script>
+</body>
+</html>

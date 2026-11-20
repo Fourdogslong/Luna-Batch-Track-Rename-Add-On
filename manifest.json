@@ -1,0 +1,13 @@
+{
+    "package_name": "Luna Batch Track Renamer Add On",
+    "id": "com.mathieu.batch_track_renamer",
+    "title": "Luna Batch Track Renamer Add On",
+    "version": "0.1.0",
+    "description": "Find, replace, clean, sequence, and save reusable track rename presets.",
+    "categories": ["Workflow","Editing"],
+    "sdk_version": "3.1.2",
+    "min_luna_version": "3.1.2",
+    "engines": ["luna"],
+    "html": "index.html",
+    "target": "browser"
+}
