@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Batch Track Rename icon">
+  <rect x="12" y="12" width="488" height="488" rx="72" fill="#252729" stroke="#4a4d50" stroke-width="8"/>
+  <g fill="#303336" stroke="#484c4f" stroke-width="4">
+    <rect x="56" y="104" width="400" height="80" rx="18"/>
+    <rect x="56" y="216" width="400" height="80" rx="18"/>
+    <rect x="56" y="328" width="400" height="80" rx="18"/>
+  </g>
+  <g fill="#c9ccce">
+    <rect x="82" y="134" width="94" height="18" rx="9"/>
+    <rect x="82" y="246" width="114" height="18" rx="9"/>
+    <rect x="82" y="358" width="78" height="18" rx="9"/>
+  </g>
+  <g fill="none" stroke="#aeb3b6" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <path d="M218 144h48m-16-16 16 16-16 16"/>
+    <path d="M218 256h48m-16-16 16 16-16 16"/>
+    <path d="M218 368h48m-16-16 16 16-16 16"/>
+  </g>
+  <g fill="#d8a532">
+    <rect x="292" y="134" width="126" height="18" rx="9"/>
+    <rect x="292" y="246" width="104" height="18" rx="9"/>
+    <rect x="292" y="358" width="142" height="18" rx="9"/>
+  </g>
+</svg>
