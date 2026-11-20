@@ -3,12 +3,13 @@
     "id": "com.mathieu.batch_track_rename",
     "title": "Batch Track Rename",
     "manufacturer": "fourdogslong",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Find, replace, clean, sequence, and save reusable track rename presets.",
     "categories": ["Workflow","Editing"],
     "sdk_version": "3.1.2",
     "min_luna_version": "3.1.2",
     "engines": ["luna"],
     "html": "index.html",
+    "icon": "icon.svg",
     "target": "browser"
 }
