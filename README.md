@@ -31,6 +31,7 @@ Run `npm run build` before opening the Add On in LUNA. It appears under **Add On
 - `src/logic.ts` contains the name transformation, preview, and batch rename logic.
 - `src/main.ts` connects to LUNA and renders the panel.
 - `index.html` contains the UI and styles.
+- `icon.svg` is the add-on icon referenced by `manifest.json`.
 - `manifest.json` configures the browser target, manufacturer, and showcase categories.
 - `vendor/luna.global.js` is the SDK script bundle.
 
