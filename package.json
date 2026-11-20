@@ -1,9 +1,9 @@
 {
-  "name": "luna-batch-track-renamer-add-on",
+  "name": "luna-batch-track-rename-add-on",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
-  "description": "Luna Batch Track Renamer Add On, built with @uaudio/luna-builder-sdk",
+  "description": "Batch Track Rename, a LUNA Add On built with @uaudio/luna-builder-sdk",
   "scripts": {
     "build": "node ./node_modules/typescript/bin/tsc && node ./node_modules/vite/bin/vite.js build",
     "dev": "node ./node_modules/vite/bin/vite.js build --watch",
