@@ -14,13 +14,24 @@ Features include:
 
 Presets are saved in this Add On's browser storage; none are bundled.
 
+## Build and use
+
+```sh
+npm install
+npm run build
+npm run serve
+npm run install-addon
+npm run pack
+```
+
+Run `npm run build` before opening the Add On in LUNA. It appears under **Add Ons > Browsers** and can be opened beside the mixer. **Selected Tracks** follows LUNA's current track selection; **All Tracks** follows visible track order.
 
 ## Project files
 
 - `src/logic.ts` contains the name transformation, preview, and batch rename logic.
 - `src/main.ts` connects to LUNA and renders the panel.
 - `index.html` contains the UI and styles.
-- `icon.svg` is the add-on icon referenced by `manifest.json`.
+- `icon.png` is the add-on icon referenced by `manifest.json`; it is rendered from the existing `icon.svg` artwork.
 - `manifest.json` configures the browser target, manufacturer, and showcase categories.
 - `vendor/luna.global.js` is the SDK script bundle.
 
