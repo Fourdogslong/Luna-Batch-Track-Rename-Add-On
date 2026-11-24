@@ -35,3 +35,6 @@ Run `npm run build` before opening the Add On in LUNA. It appears under **Add On
 - `manifest.json` configures the browser target, manufacturer, and showcase categories.
 - `vendor/luna.global.js` is the SDK script bundle.
 
+## Support
+
+If you enjoy this add-on and would like to support my work, consider [sponsoring me on GitHub](https://github.com/sponsors/fourdogslong). You can also use the **Sponsor** button at the top of this repository.
